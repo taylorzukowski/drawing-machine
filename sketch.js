@@ -11,10 +11,13 @@ let player;
 let coins = [];
 let playerImg;
 let coinImg;
+let shopImg;
+let y = 0;
 
 function preload(){
   playerImg = loadImage('assets/player_coin.png')
   coinImg = loadImage('assets/cupcake_coin.png')
+  shopImg = loadImage('assets/game_background.png')
 }
 
 function setup() {
@@ -31,6 +34,10 @@ function setup() {
 }
 
 function draw() {
+
+background(shopImg);
+
+
 
   switch (state) {
     case 'title':
@@ -92,7 +99,7 @@ function keyReleased() {
 
 
 function title() {
-  background(247, 176, 247);
+  background(shopImg);
   textSize(65);
   fill(255);
   textAlign(CENTER);
@@ -108,7 +115,7 @@ function titleMouseClicked() {
 }
 
 function level1() {
-  background(156, 223, 240);
+  background(shopImg);
   //text('click for points', w/2, h - 30);
 
   if (random(1) <= 0.01){
