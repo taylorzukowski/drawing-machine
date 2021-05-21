@@ -10,91 +10,112 @@ let h = 600;
 let player;
 let coin;
 
-function setup(){
+function setup() {
   cnv = createCanvas(w, h);
 
   textFont('monospace');
 
-player = new Player();
+  player = new Player();
 
-coin = new Coin();
+  coin = new Coin();
 
 
 }
 
 function draw() {
 
-  switch (state){
+  switch (state) {
     case 'title':
-    title();
-    cnv.mouseClicked(titleMouseClicked);
-    break;
+      title();
+      cnv.mouseClicked(titleMouseClicked);
+      break;
     case 'level 1':
-    level1();
-    cnv.mouseClicked(level1MouseClicked);
-    break;
+      level1();
+      cnv.mouseClicked(level1MouseClicked);
+      break;
     case 'you win':
-    youWin();
-    cnv.mouseClicked(youWinMouseClicked);
-    break;
+      youWin();
+      cnv.mouseClicked(youWinMouseClicked);
+      break;
     default:
-    break;
+      break;
   }
 }
-  //if (state === 'title') {
-  //  title();
-  //  cnv.mouseClicked(titleMouseClicked);
+//if (state === 'title') {
+//  title();
+//  cnv.mouseClicked(titleMouseClicked);
 //  } else if (state === 'level 1') {
-  //  level1();
-  //  cnv.mouseClicked(level1MouseClicked);
+//  level1();
+//  cnv.mouseClicked(level1MouseClicked);
+function keyPressed() {
+  if (keyCode == LEFT_ARROW) {
+    player.direction = 'left'
+  } else if (keyCode == RIGHT_ARROW) {
+    player.direction = 'right'
+  } else if (keyCode == UP_ARROW) {
+    player.direction = 'up'
+  } else if (keyCode == DOWN_ARROW) {
+    player.direction = 'down'
+  } else if (key = ' ') {
+    player.direction = 'still';
+  }
+}
 
-
-function title(){
+function title() {
   background(100);
   textSize(80);
   fill(255);
   textAlign(CENTER);
-  text('MY GAME', w/2, h/5);
+  text('MY GAME', w / 2, h / 5);
 
-textSize(30);
-  text('click anywhere to start', w/2, h/2);
+  textSize(30);
+  text('click anywhere to start', w / 2, h / 2);
 }
 
-function titleMouseClicked(){
+function titleMouseClicked() {
   console.log('canvas is clicked on title page');
   state = 'level 1'
 }
 
-function level1(){
+function level1() {
   background(50, 150, 200);
   //text('click for points', w/2, h - 30);
 
   player.display();
+  player.move();
   coin.display();
   coin.move();
 
+  if (dist(player.x, player.y, coin.x, coin.y) <= (player.r + coin.r) / 2){
+    points++;
+    console.log(points);
+  }
+
+  text('points: ' + points, w/4, h - 30);
+
 
 }
 
-function level1MouseClicked(){
-    console.log('points = ' + points);
-    points += 1;
+function level1MouseClicked() {
+  //  console.log('points = ' + points);
+  //  points += 1;
 
-    if (points >= 10){
-      state = 'you win';
-    }
+  //  if (points >= 10){
+  //    state = 'you win';
+  //  }
 }
 
-function youWin(){
+function youWin() {
   background(255, 50, 80);
   textSize(80);
   stroke(255);
-  text('YOU WIN', w/2, h/2);
+  text('YOU WIN', w / 2, h / 2);
 
-textSize(30);
-  text('click anywhere to play again', w/2, h * 3/4);
+  textSize(30);
+  text('click anywhere to play again', w / 2, h * 3 / 4);
 }
-function youWinMouseClicked(){
+
+function youWinMouseClicked() {
   state = 'level 1';
   points = 0;
 }
@@ -111,16 +132,16 @@ function youWinMouseClicked(){
 //function draw() {
 //  if (mouseIsPressed) {
 //    strokeWeight(5);
-  //  line(mouseX, mouseY, pmouseX, pmouseY);
-  //}
+//  line(mouseX, mouseY, pmouseX, pmouseY);
+//}
 //}
 
 //function keyTyped() {
 //  if (key === 's') {
-    // save this image
-  //  saveCanvas('fileName', 'png');
+// save this image
+//  saveCanvas('fileName', 'png');
 //  } else if (key === 'c') {
-  //  clear();
-  //  }
-  //  endShape();
- //}
+//  clear();
+//  }
+//  endShape();
+//}
