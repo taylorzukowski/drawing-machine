@@ -9,6 +9,13 @@ let w = 600;
 let h = 600;
 let player;
 let coins = [];
+let playerImg;
+let coinImg;
+
+function preload(){
+  playerImg = loadImage('assets/player_coin.png')
+  coinImg = loadImage('assets/cupcake_coin.png')
+}
 
 function setup() {
   cnv = createCanvas(w, h);
@@ -62,12 +69,34 @@ function keyPressed() {
   }
 }
 
+function keyReleased() {
+  let numberKeysPressed = 0;
+
+  if (keyIsDown(LEFT_ARROW)){
+    numberKeysPressed++;
+}
+    if (keyIsDown(RIGHT_ARROW)){
+      numberKeysPressed++;
+}
+      if (keyIsDown(DOWN_ARROW)){
+        numberKeysPressed++;
+}
+        if (keyIsDown(UP_ARROW)){
+          numberKeysPressed++;
+  }
+
+  if (numberKeysPressed === 0) {
+  player.direction = 'still';
+}
+}
+
+
 function title() {
-  background(100);
-  textSize(80);
+  background(247, 176, 247);
+  textSize(65);
   fill(255);
   textAlign(CENTER);
-  text('MY GAME', w / 2, h / 5);
+  text('CUPCAKE CATCHER', w / 2, h / 5);
 
   textSize(30);
   text('click anywhere to start', w / 2, h / 2);
@@ -79,7 +108,7 @@ function titleMouseClicked() {
 }
 
 function level1() {
-  background(50, 150, 200);
+  background(156, 223, 240);
   //text('click for points', w/2, h - 30);
 
   if (random(1) <= 0.01){
@@ -132,29 +161,3 @@ function youWinMouseClicked() {
   state = 'level 1';
   points = 0;
 }
-
-//function setup() {
-
-//  cakepic = loadImage('drawingcake.png');
-//  createCanvas(500, 500);
-//  strokeWeight (5);
-
-//  background(cakepic);
-//}
-
-//function draw() {
-//  if (mouseIsPressed) {
-//    strokeWeight(5);
-//  line(mouseX, mouseY, pmouseX, pmouseY);
-//}
-//}
-
-//function keyTyped() {
-//  if (key === 's') {
-// save this image
-//  saveCanvas('fileName', 'png');
-//  } else if (key === 'c') {
-//  clear();
-//  }
-//  endShape();
-//}
